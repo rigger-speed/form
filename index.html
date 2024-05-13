@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <style>
+           .error {color: #FF0000;}
+          div{margin-bottom: 10px;}
+      </style>
+   </head>
+   <body style="direction: rtl">
+      <?php
+         // define variables and set to empty values
+         
+         $nameErr = $emailErr = $genderErr = $websiteErr = "";
+         
+         $name = $email = $gender = $comment = $website = "";
+         
+         
+         
+         if ($_SERVER["REQUEST_METHOD"] == "POST")
+         
+         {
+         
+         
+         
+            if (empty($_POST["name"]))
+         
+              {$nameErr = "وارد کردن نام الزامی است";}
+         
+            else
+         
+              {$name = test_input($_POST["name"]);}
+         
+           
+         
+            if (empty($_POST["email"]))
+         
+              {$emailErr = "وارد کردن ایمیل الزامی است";}
+         
+            else
+         
+              {$email = test_input($_POST["email"]);}
+         
+             
+         
+            if (empty($_POST["website"]))
+         
+              {$website = "";}
+         
+            else
+         
+              {$website = test_input($_POST["website"]);}
+         
+         
+         
+            if (empty($_POST["comment"]))
+         
+              {$comment = "";}
+         
+            else
+         
+              {$comment = test_input($_POST["comment"]);}
+         
+         
+         
+            if (empty($_POST["gender"]))
+         
+              {$genderErr = "انتخاب جنسیت الزامی است";}
+         
+            else
+         
+              {$gender = test_input($_POST["gender"]);}
+         
+           
+         
+         }
+         
+         
+         
+         function test_input($data)
+         
+         {
+         
+              $data = trim($data);
+         
+              $data = stripslashes($data);
+         
+              $data = htmlspecialchars($data);
+         
+              return $data;
+         
+         }
+         
+         ?>
+      <h2>فرم</h2>
+      <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+         <div>
+              <span>نام:</span><input type="text" name="name">
+              <span class="error">*</span>
+         </div>
+         <div>
+              <span>ایمیل:</span><input type="text" name="email">
+              <span class="error">*</span>
+         </div>
+         <div>
+              <span>وب سایت:</span><input type="text" name="website">
+              <span class="error"></span>
+         </div>
+         <div>
+              <span>توضیحات:</span><textarea name="comment" rows="5" cols="40"></textarea>
+         </div>
+         <div>
+            <span>جنسیت:</span>
+            <input type="radio" name="gender" value="female">زن
+            <input type="radio" name="gender" value="male">مرد
+         </div>
+         </div><input type="submit" name="submit" value="ارسال اطلاعات"></div>
+      </form>
+      <?php
+         if ($nameErr!="" || $emailErr!="" || $genderErr!="" || $websiteErr!="")
+         
+         echo "<span style='color:red' >
+         
+                  $nameErr <br /> $emailErr <br /> $genderErr <br /> $websiteErr
+         
+               </span>";
+         
+         else
+         
+         {
+         
+         echo "<br /><h2>خروجی</h2>";
+         
+         echo "نام :$name";
+         
+         echo "<br />";
+         
+         echo "ایمیل: $email";
+         
+         echo "<br />";
+         
+         echo "وب سایت: $website";
+         
+         echo "<br />";
+         
+         echo "توضیحات: $comment";
+         
+         echo "<br />";
+         
+         echo "جنسیت: $gender";
+         
+         }
+         
+         ?>
+   </body>
+</html>
